@@ -1,6 +1,7 @@
 defmodule ExampleSystemWeb.Router do
   use ExampleSystemWeb, :router
   import Phoenix.LiveView.Router
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -24,5 +25,6 @@ defmodule ExampleSystemWeb.Router do
     live("/load", Load.Dashboard)
     live("/services", Services.Dashboard)
     live("/top", Top.Dashboard)
+    live_dashboard "/dashboard"
   end
 end

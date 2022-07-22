@@ -1,25 +1,23 @@
 defmodule ExampleSystemWeb.Math.Sum do
-  use Phoenix.LiveView
+  use ExampleSystemWeb, :live_view
+  require Logger
 
-  @impl Phoenix.LiveView
-  def render(assigns) do
-    ExampleSystemWeb.Math.View.render(
-      "sum.html",
-      assigns
-    )
-  end
+  @impl true
+  def mount(_params, session, socket) do
+    Logger.info "session #{inspect session}"
+    Logger.info "socket #{inspect socket}"
+    Logger.debug "get_connect_params #{inspect get_connect_params(socket)}"
+    Logger.info "CONNECTED? #{connected?(socket)}"
 
-  @impl Phoenix.LiveView
-  def mount(_params, _session, socket) do
     {:ok, assign(socket, operations: [], data: data())}
   end
 
-  @impl Phoenix.LiveView
+  @impl true
   def handle_event("submit", %{"data" => %{"to" => str_input}}, socket) do
     {:noreply, start_sum(socket, str_input)}
   end
 
-  @impl Phoenix.LiveView
+  @impl true
   def handle_info({:sum, pid, sum}, socket),
     do: {:noreply, update(socket, :operations, &set_result(&1, pid, sum))}
 
@@ -36,8 +34,8 @@ defmodule ExampleSystemWeb.Math.Sum do
           %{pid: nil, input: str_input, result: "invalid input"}
 
         # TODO: Sasa commented below.. why?
-        {input, ""} when input <= 0 ->
-          %{pid: nil, input: input, result: "invalid input"}
+        #{input, ""} when input <= 0 ->
+        #  %{pid: nil, input: input, result: "invalid input"}
 
         {input, ""} ->
           do_start_sum(input)

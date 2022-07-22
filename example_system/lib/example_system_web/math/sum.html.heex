@@ -1,8 +1,8 @@
 <div class="sumForm">
   <h1>Please insert some number.</h1>
-  <%= f = form_for @data, "/", [phx_submit: "submit", as: :data] %>
-  <%= number_input(f, :to, autofocus: true) %>
-  </form>
+  <.form let={f} for={@data} phx-submit="submit" as={:data}>
+    <%= number_input(f, :to, autofocus: true) %>
+  </.form>
   <br />
 
   <div>

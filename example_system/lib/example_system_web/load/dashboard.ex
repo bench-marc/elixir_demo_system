@@ -1,11 +1,11 @@
 defmodule ExampleSystemWeb.Load.Dashboard do
-  use Phoenix.LiveView
+  use ExampleSystemWeb, :live_view
 
-  @impl Phoenix.LiveView
-  def render(assigns), do: ExampleSystemWeb.Load.View.render("dashboard.html.leex", assigns)
+  @impl true
+  def render(assigns), do: ExampleSystemWeb.Load.View.render("dashboard.html", assigns)
 
-  @impl Phoenix.LiveView
-  def mount(_session, socket) do
+  @impl true
+  def mount(_params, _session, socket) do
     {:ok,
      assign(socket,
        load: changeset(LoadControl.load()),
@@ -15,7 +15,7 @@ defmodule ExampleSystemWeb.Load.Dashboard do
      )}
   end
 
-  @impl Phoenix.LiveView
+  @impl true
   def handle_event("change_load", %{"data" => %{"value" => load}}, socket) do
     with {load, ""} when load >= 0 <- Integer.parse(load) do
       Task.start_link(fn -> LoadControl.change_load(load) end)

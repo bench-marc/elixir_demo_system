@@ -7,8 +7,8 @@
         <div class="header">CPU</div>
         <%= Enum.map(@top, fn process -> %>
             <div class="pid">
-              <a href="#" phx-click="process_info" phx-value="<%= stringify_pid(process.pid) %>">info</a>
-              <a href="#" phx-click="process_kill" phx-value="<%= stringify_pid(process.pid) %>">kill</a>
+              <a href="#" phx-click="process_info" phx-value="{stringify_pid(process.pid)}">info</a>
+              <a href="#" phx-click="process_kill" phx-value="{stringify_pid(process.pid)}">kill</a>
             </div>
             <%= stringify_pid(process.pid) %>
           <div class="cpu"><%= process.cpu %>%</div>
